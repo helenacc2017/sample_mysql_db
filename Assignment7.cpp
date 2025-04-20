@@ -56,7 +56,7 @@ int main() {
         con = driver->connect("mysql.eecs.ku.edu", "348s25_c522z106", "riK4thoh");
 
         // Connect to the database
-        con->setSchema("university");
+        con->setSchema("348s25_c522z106");
 
         // Create a statement
         sql::Statement *stmt = con->createStatement();
