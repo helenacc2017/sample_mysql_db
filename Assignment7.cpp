@@ -53,7 +53,7 @@ int main() {
         sql::Connection *con;
 
         driver = sql::mysql::get_mysql_driver_instance();
-        con = driver->connect("tcp://127.0.0.1:3306", "username", "password");
+        con = driver->connect("mysql.eecs.ku.edu", "348s25_c522z106", "riK4thoh");
 
         // Connect to the database
         con->setSchema("university");
