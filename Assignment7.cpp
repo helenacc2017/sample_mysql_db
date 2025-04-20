@@ -63,6 +63,7 @@ int main() {
 
         // 1. Retrieve all students majoring in 'IS'
         string query1 = "SELECT * FROM Student WHERE StdMajor = 'IS'";
+        cout << "Query (1) --------------------" << endl;
         executeAndDisplayQuery(stmt, query1, "Students majoring in IS");
 
         // 2. Find the names of students who have enrolled in more than two courses
@@ -71,6 +72,7 @@ int main() {
                         "JOIN Enrollment e ON s.StdNo = e.StdNo "
                         "GROUP BY s.StdNo "
                         "HAVING COUNT(e.OfferNo) > 2";
+        cout << "Query (2) --------------------" << endl;
         executeAndDisplayQuery(stmt, query2, "Students enrolled in more than two courses");
 
         // 3. List all professors who have been teaching for more than 5 years in the 'Physics' department
@@ -78,6 +80,7 @@ int main() {
         string query3 = "SELECT FacFirstName, FacLastName, FacDept, FacHireDate "
                         "FROM Faculty "
                         "WHERE FacDept = 'MS' AND YEAR(CURDATE()) - YEAR(FacHireDate) > 5";
+        cout << "Query (3) --------------------" << endl;
         executeAndDisplayQuery(stmt, query3, "Professors teaching for more than 5 years in MS department");
 
         // 4. Retrieve the total number of students enrolled in each department, but only for departments with more than 50 students
@@ -86,6 +89,7 @@ int main() {
                         "FROM Student "
                         "GROUP BY StdMajor "
                         "HAVING COUNT(*) > 2";
+        cout << "Query (4) --------------------" << endl;
         executeAndDisplayQuery(stmt, query4, "Departments with more than 2 students");
 
         // 5. Find the course names and IDs of courses that have 'Data' in their title and are taught by a specific faculty
@@ -94,10 +98,12 @@ int main() {
                         "JOIN Offering o ON c.CourseNo = o.CourseNo "
                         "JOIN Faculty f ON o.FacNo = f.FacNo "
                         "WHERE c.CrsDesc LIKE '%DATA%' AND f.FacLastName = 'FIBON'";
+        cout << "Query (5) --------------------" << endl;
         executeAndDisplayQuery(stmt, query5, "Data courses taught by Prof. FIBON");
 
         // 6. Display the students who have not enrolled in any courses in the past two semesters
         // Using a more simplified approach for the sample data
+        cout << "Query (6) --------------------" << endl;
         string query6 = "SELECT s.StdNo, s.StdFirstName, s.StdLastName "
                         "FROM Student s "
                         "WHERE s.StdNo NOT IN (SELECT e.StdNo FROM Enrollment e)";
@@ -108,6 +114,7 @@ int main() {
                         "FROM Student "
                         "ORDER BY StdGPA DESC "
                         "LIMIT 1 OFFSET 1";
+        cout << "Query (7) --------------------" << endl;
         executeAndDisplayQuery(stmt, query7, "Student with second-highest GPA");
 
         // 8. Find the names of students who are also teaching assistants but have a GPA above 3.5
@@ -116,6 +123,7 @@ int main() {
                         "FROM Student s "
                         "JOIN Faculty f ON s.StdNo = f.FacNo "
                         "WHERE s.StdGPA > 3.5";
+        cout << "Query (8) --------------------" << endl;
         executeAndDisplayQuery(stmt, query8, "Student TAs with GPA above 3.5");
 
         // 9. List all students along with their enrolled courses, but only for those who enrolled after 2022
@@ -126,6 +134,7 @@ int main() {
                         "JOIN Offering o ON e.OfferNo = o.OfferNo "
                         "JOIN Course c ON o.CourseNo = c.CourseNo "
                         "WHERE o.OffYear >= 2020";
+        cout << "Query (9) --------------------" << endl;
         executeAndDisplayQuery(stmt, query9, "Students with courses enrolled after or in 2020");
 
         // 10. Retrieve the names and salaries of the top three highest-paid professors
@@ -133,18 +142,21 @@ int main() {
                          "FROM Faculty "
                          "ORDER BY FacSalary DESC "
                          "LIMIT 3";
+        cout << "Query (10) --------------------" << endl;
         executeAndDisplayQuery(stmt, query10, "Top three highest-paid professors");
 
         // 11. Insert a Junior Computer Science student named "Alice Smith" from Topeka, Kansas
         stmt->execute("INSERT INTO Student (StdNo, StdFirstName, StdLastName, StdCity, "
                       "StdState, StdMajor, StdClass, StdGPA, StdZip) "
                       "VALUES ('888-88-8888', 'ALICE', 'SMITH', 'TOPEKA', 'KS', 'CS', 'JR', 3.85, '66610')");
+        cout << "Query (11) --------------------" << endl;
         executeAndDisplayQuery(stmt, "SELECT * FROM Student WHERE StdNo = '888-88-8888'",
                             "Inserted student Alice Smith");
 
         // 12. Update Bob Norbert's information
         stmt->execute("UPDATE Student SET StdCity = 'OVERLAND PARK', StdZip = '66210' "
                       "WHERE StdNo = '124-56-7890'");
+        cout << "Query (12) --------------------" << endl;
         executeAndDisplayQuery(stmt, "SELECT * FROM Student WHERE StdNo = '124-56-7890'",
                             "Updated student Bob Norbert");
 
